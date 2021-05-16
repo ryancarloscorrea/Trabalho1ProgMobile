@@ -113,12 +113,13 @@ public class CadastroAluno extends AppCompatActivity {
                     aluno.setCursoId(idCurso);
                     if(btnVariavel.getText().toString().equals("INSERIR")) {
                         retornoDB = dbHelper.insereAluno(aluno);
-                        Log.i("idAluno", String.valueOf(aluno.getAlunoId()));
                         if (retornoDB == -1) {
                             Toast.makeText(CadastroAluno.this, "Erro as cadastrar aluno", Toast.LENGTH_LONG).show();
 
                         }else{
                             Toast.makeText(CadastroAluno.this, "Cadastro realizado com sucesso!", Toast.LENGTH_LONG).show();
+                            Intent it = new Intent(CadastroAluno.this, MainActivity.class);
+                            startActivity(it);
                         }
                     } else { /// atualizar
                         dbHelper.atualizarContato(aluno);
@@ -126,8 +127,6 @@ public class CadastroAluno extends AppCompatActivity {
                     }
                     finish();
                 }
-
-
 
             }
         });

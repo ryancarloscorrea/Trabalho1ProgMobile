@@ -13,7 +13,6 @@ import android.widget.Toast;
 import java.util.Random;
 
 public class CadastroCurso extends AppCompatActivity {
-    static boolean active = false;
     private EditText edtNomeCurso, edtQtdHoras;
     private Button btnVariavel;
     Curso curso, alteraCurso;
@@ -52,13 +51,11 @@ public class CadastroCurso extends AppCompatActivity {
                 Random gerador = new Random();
                 int cursoId = gerador.nextInt();
 
-                Log.i("RYAN", String.valueOf(cursoId));
                 curso.setNomeCurso(nomeCurso);
                 curso.setQtdeHoras(Integer.parseInt(qdtHoras));
                 curso.setCursoId(cursoId);
                 if(btnVariavel.getText().toString().equals("INSERIR")) {
                     retornoDB = dbHelper.insereCurso(curso);
-//                    Log.i("idAluno", String.valueOf(aluno.getAlunoId()));
                     if (retornoDB == -1) {
                         Toast.makeText(CadastroCurso.this, "Erro as cadastrar curso", Toast.LENGTH_LONG).show();
 
@@ -74,14 +71,5 @@ public class CadastroCurso extends AppCompatActivity {
                 }
             });
         }
-    }
-    public void onStart() {
-        super.onStart();
-        active = true;
-    }
-    @Override
-    public void onStop() {
-        super.onStop();
-        active = false;
     }
 }

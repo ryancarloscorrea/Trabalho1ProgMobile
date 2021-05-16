@@ -87,15 +87,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
         retornoDB = db.insert(TABLE_NAME_CURSO, null, values);
         String res = Long.toString(retornoDB);
-        Log.i("DBContatoHelperCurso", res);
         String sqlQuery = "SELECT * from curso";
         Cursor cursor = getReadableDatabase().rawQuery(sqlQuery, null);
-//        while(cursor.moveToNext()) {
-//            Log.i("InsereCurso", String.valueOf(cursor.getInt(0)));
-//            Log.i("InsereCurso", String.valueOf(cursor.getString(1)));
-//            Log.i("InsereCurso", String.valueOf(cursor.getString(2)));
-//        }
-        Log.i("CursoInserido", String.valueOf(cursor.getCount()));
         db.close();
 
 
@@ -124,10 +117,8 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(COLUM_NOME_CURSO, curso.getNomeCurso());
         values.put(COLUM_QTD_HORAS, curso.getQtdeHoras());
         String [] args = new String[]{String.valueOf(curso.getCursoId())};
-//        Log.i("ID ALUNO", String.valueOf(args));
 
         retorno = db.update(TABLE_NAME_CURSO, values, "cursoId = ?", args);
-        Log.i("update", String.valueOf(retorno));
         db.close();
         return retorno;
     }
@@ -144,7 +135,6 @@ public class DBHelper extends SQLiteOpenHelper {
         }else{
             String [] args = {String.valueOf(curso.getCursoId())};
             retornoDB = db.delete(TABLE_NAME_CURSO, COLUM_CURSO_ID + "=?", args);
-            Log.i("Delete", String.valueOf(retornoDB));
             return retornoDB;
         }
     }
@@ -165,7 +155,6 @@ public class DBHelper extends SQLiteOpenHelper {
 
         retornoDB = db.insert(TABLE_NAME_ALUNO, null, values);
         String res = Long.toString(retornoDB);
-        Log.i("DBContatoHelper", res);
         db.close();
         return retornoDB;
     }
@@ -188,40 +177,19 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         return listAluno;
     }
-    public ArrayList<Curso> selecionaCursoPorAluno() {
-        String sqlQuery = "SELECT * from curso";
-        // , curso as c where a.cursoId = c.cursoId";
-        Cursor cursor = getReadableDatabase().rawQuery(sqlQuery, null);
-//        String [] colums = {COLUM_CURSO_ID,COLUM_NOME_CURSO, COLUM_QTD_HORAS};
-//        Cursor cursor = getReadableDatabase().query(TABLE_NAME_CURSO, colums, null, null,null,null, "upper(nomeCurso)");
-
-        ArrayList<Curso> listCurso = new ArrayList<>();
-
-        while(cursor.moveToNext()) {
-            Curso curso = new Curso();
-            curso.setCursoId(cursor.getInt((0)));
-            curso.setNomeCurso(cursor.getString(1));
-            curso.setQtdeHoras(cursor.getInt(2));
-            listCurso.add(curso);
-        }
-        return listCurso;
-    }
     public long atualizarContato (Aluno aluno) {
         long retorno;
         db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        Log.i("Insert3442", String.valueOf(aluno.getNomeAluno()));
         values.put(COLUM_CURSO_ID, aluno.getCursoId());
         values.put(COLUM_NOME, aluno.getNomeAluno());
         values.put(COLUM_CPF, aluno.getCpf());
         values.put(COLUM_EMAIL, aluno.getEmail());
         values.put(COLUM_TELEFONE, aluno.getTelefone());
         String [] args = new String[]{String.valueOf(aluno.getAlunoId())};
-        Log.i("ID ALUNO", String.valueOf(args));
         String where;
         where = COLUM_NOME + "=" + aluno.getNomeAluno();
         retorno = db.update(TABLE_NAME_ALUNO, values, "alunoId = ?", args);
-        Log.i("update", String.valueOf(retorno));
         db.close();
         return retorno;
     }
@@ -230,16 +198,27 @@ public class DBHelper extends SQLiteOpenHelper {
         db = this.getWritableDatabase();
         String [] args = {String.valueOf(aluno.getAlunoId())};
         retornoDB = db.delete(TABLE_NAME_ALUNO, COLUM_ALUNOID + "=?", args);
-        Log.i("Delete", String.valueOf(retornoDB));
         return retornoDB;
 
+    }
+    public ArrayList<AuxAluno> getAlunoCurso() {
+        db = this.getReadableDatabase();
+        String query = "SELECT a.nomeAluno, c.nomeCurso from aluno as a, curso as c where c.cursoId = a.cursoId";
+        Cursor cursor = db.rawQuery(query, null);
+        ArrayList<AuxAluno> listAuxAluno = new ArrayList<>();
+        while(cursor.moveToNext()){
+            AuxAluno auxAluno = new AuxAluno();
+            auxAluno.setNomeAluno(cursor.getString(0));
+            auxAluno.setNomeCurso(cursor.getString(1));
+            listAuxAluno.add(auxAluno);
+        }
+        return listAuxAluno;
     }
 
     public List<SpinnerCurso> getAllCursos() {
         db = this.getWritableDatabase();
         String query = "SELECT cursoId, nomeCurso from curso";
         Cursor cursor = getReadableDatabase().rawQuery(query, null);
-        Log.i("testando", String.valueOf(cursor));
         List <SpinnerCurso> spinnerCursos = new ArrayList<>();
         while (cursor.moveToNext()) {
             int idCurso = cursor.getInt(0);
@@ -248,15 +227,5 @@ public class DBHelper extends SQLiteOpenHelper {
             spinnerCursos.add(spinnerCurso);
         }
         return spinnerCursos;
-
-
     }
 }
-
-//    Tabela Aluno
-//    int alunoId;
-//    int cursoId; (chave estrangeira)
-//    String nomeAluno;
-//    String cpf;
-//    String email;
-//    String telefone;

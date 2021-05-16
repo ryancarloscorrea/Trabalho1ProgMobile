@@ -35,8 +35,7 @@ public class Curso implements Serializable {
     }
     @Override
     public String toString() {
-
-        return " id: " + String.valueOf(cursoId) + " Nome: " + nomeCurso.toString() + " Qdt Horas: " + String.valueOf(qtdeHoras);
+        return " Nome: " + nomeCurso.toString() + "\nQdt Horas: " + String.valueOf(qtdeHoras);
     }
 
 

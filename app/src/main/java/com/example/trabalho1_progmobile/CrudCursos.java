@@ -64,7 +64,6 @@ public class CrudCursos extends AppCompatActivity {
     public void preencherLista() {
         dbHelper = new DBHelper(CrudCursos.this);
         arrayListCursos = dbHelper.selecionaTodosCursos();
-        Log.i("Todosalunos", String.valueOf(arrayListCursos));
         dbHelper.close();
         if (arrayListCursos != null) {
             arrayAdapterCursos = new ArrayAdapter<Curso>(CrudCursos.this, android.R.layout.simple_expandable_list_item_1, arrayListCursos);

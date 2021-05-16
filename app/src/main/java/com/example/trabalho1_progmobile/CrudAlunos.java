@@ -16,14 +16,18 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CrudAlunos extends AppCompatActivity {
 
     ListView listaDeAlunos;
+    ListView listaDeAlunosAux;
     Button btnCadastrarAluno;
     DBHelper dbHelper;
     ArrayList arrayListAlunos;
+    ArrayList arrayListAlunoAux;
     ArrayAdapter<Aluno> arrayAdapterAluno;
+    ArrayAdapter<AuxAluno> arrayAdapterAuxAluno;
     Aluno aluno;
     private int id1,id2;
 
@@ -33,6 +37,7 @@ public class CrudAlunos extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crud_alunos);
         listaDeAlunos = findViewById(R.id.listaDeAlunos);
+        listaDeAlunosAux = findViewById(R.id.listAlunoNomeCurso);
         btnCadastrarAluno = findViewById(R.id.inserirAluno);
         preencherLista();
         registerForContextMenu(listaDeAlunos);
@@ -64,7 +69,6 @@ public class CrudAlunos extends AppCompatActivity {
     public void preencherLista() {
         dbHelper = new DBHelper(CrudAlunos.this);
         arrayListAlunos = dbHelper.selecionaTodosAlunos();
-        Log.i("Todosalunos", String.valueOf(arrayListAlunos));
         dbHelper.close();
         if (arrayListAlunos != null) {
             arrayAdapterAluno = new ArrayAdapter<Aluno>(CrudAlunos.this, android.R.layout.simple_expandable_list_item_1, arrayListAlunos);
