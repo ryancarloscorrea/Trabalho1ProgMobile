@@ -10,14 +10,6 @@ public class Aluno implements Serializable {
     private String email;
     private String telefone;
 
-//    public Aluno(int alunoId, int cursoId, String nomeAluno, String cpf, String email, String telefone) {
-//        this.alunoId = alunoId;
-//        this.cursoId = cursoId;
-//        this.nomeAluno = nomeAluno;
-//        this.cpf = cpf;
-//        this.email = email;
-//        this.telefone = telefone;
-//    }
 
     public int getAlunoId() {
         return alunoId;
@@ -69,6 +61,8 @@ public class Aluno implements Serializable {
 
     @Override
     public String toString() {
-        return "Nome: " + nomeAluno.toString();
+        return "Nome: " + nomeAluno.toString() +
+                "\nEmail: " + email.toString() +
+                "\nTelefone: " + telefone.toString();
     }
 }

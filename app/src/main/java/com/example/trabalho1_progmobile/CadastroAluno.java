@@ -121,7 +121,7 @@ public class CadastroAluno extends AppCompatActivity {
                             Intent it = new Intent(CadastroAluno.this, MainActivity.class);
                             startActivity(it);
                         }
-                    } else { /// atualizar
+                    } else {
                         dbHelper.atualizarContato(aluno);
                         dbHelper.close();
                     }
@@ -143,17 +143,4 @@ public class CadastroAluno extends AppCompatActivity {
         int id = spinnerCurso.getIdCurso();
         return id;
     }
-//    private void loadSpinnerData() {
-//        DatabaseHandler db = new DatabaseHandler(getApplicationContext());
-//        List<String> labels = db.getAllLabels();
-//
-//        // Creating adapter for spinner
-//        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, labels);
-//
-//        // Drop down layout style - list view with radio button
-//        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//
-//        // attaching data adapter to spinner
-//        spinner.setAdapter(dataAdapter);
-//    }
 }

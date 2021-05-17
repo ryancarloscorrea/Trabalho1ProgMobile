@@ -44,7 +44,7 @@ public class DBHelper extends SQLiteOpenHelper {
             "foreign key(cursoId) references curso(cursoId))";
 
     private static final String TABLE_CURSO_CREATE = "create table curso" +
-            "(cursoId INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "(cursoId INTEGER PRIMARY KEY, " +
             "nomeCurso text not null," +
             "qtdeHoras text not null)";
 
