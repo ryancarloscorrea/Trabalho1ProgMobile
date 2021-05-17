@@ -5,8 +5,6 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,7 +16,6 @@ import android.widget.Toast;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
-import java.util.Random;
 
 public class CadastroAluno extends AppCompatActivity {
     private EditText edtNome, edtEmail, edtTelefone, edtCpf;
@@ -56,6 +53,7 @@ public class CadastroAluno extends AppCompatActivity {
                                 @Override
                                 public void onClick(View v) {
                                     Intent it = new Intent(CadastroAluno.this, CadastroCurso.class);
+                                    it.putExtra("ch_cadAluno", "aloCurso");
                                     startActivity(it);
                                 }
                             });
@@ -142,5 +140,33 @@ public class CadastroAluno extends AppCompatActivity {
     public int getIdCurso(SpinnerCurso spinnerCurso){
         int id = spinnerCurso.getIdCurso();
         return id;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        String test = getIntent().getStringExtra("ch_cadCurso");
+        if (test !=null) {
+            adapterSpinner.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void onActivityReenter(int resultCode, Intent data) {
+        super.onActivityReenter(resultCode, data);
+        String test = getIntent().getStringExtra("ch_cadCurso");
+        if (test !=null) {
+            adapterSpinner.notifyDataSetChanged();
+        }
+    }
+
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+            String test = getIntent().getStringExtra("ch_cadCurso");
+            if (test !=null) {
+                adapterSpinner.notifyDataSetChanged();
+            }
     }
 }

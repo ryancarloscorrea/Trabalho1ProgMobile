@@ -60,8 +60,13 @@ public class CadastroCurso extends AppCompatActivity {
                         Toast.makeText(CadastroCurso.this, "Erro as cadastrar curso", Toast.LENGTH_LONG).show();
 
                     }else{
-                        CadastroAluno cadastroAluno = null;
-                        cadastroAluno.adapterSpinner.notifyDataSetChanged();
+                        String test = getIntent().getStringExtra("ch_cadAluno");
+                        if(test  != null) {
+                            Intent it = new Intent(CadastroCurso.this, CadastroAluno.class);
+                            it.putExtra("ch_cadCurso", "test");
+                            startActivity(it);
+                        }
+                        CadastroAluno cadastroAluno = new CadastroAluno();
                         Toast.makeText(CadastroCurso.this, "Cadastro realizado com sucesso!", Toast.LENGTH_LONG).show();
                     }
                 } else { /// atualizar
